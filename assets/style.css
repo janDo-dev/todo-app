@@ -16,14 +16,17 @@ body {
   list-style: none;
   background-color: lightgray;
   padding: 2rem;
+  border-radius: 0.5rem;
 }
 
 .todo {
   position: relative;
   background-color: #fff;
+  border-radius: 0.5rem;
   padding: 1rem;
   margin-bottom: 1rem;
   line-height: 1;
+  overflow: hidden;
 }
 
 .todo::before {
@@ -43,9 +46,10 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
 
-.tod .todo:last-of-type {
+.todo:last-of-type {
   margin-bottom: unset;
 }
 
