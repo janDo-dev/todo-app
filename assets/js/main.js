@@ -61,10 +61,6 @@ function removeTodo(e) {
 
     e.target.remove();
 
-    if (todos.length <= 0) {
-      todoList.innerHTML = "<li>No Todo added, yet.</li>";
-    }
-
     console.log(todos);
   }
 }
