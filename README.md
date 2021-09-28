@@ -1,1 +1,1 @@
-# todo-app
+# Simple Todo App (Learning Project)
