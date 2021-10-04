@@ -17,14 +17,16 @@
 
     <main id="main-content">
       <form id="todo-form" method="post">
-        <label for="todo-text">Create a todo</label>
+        <label for="todo-text-input">Create a todo</label>
         <input
           type="text"
-          name="todo-text"
-          id="todo-text"
+          name="todo-text-input"
+          id="todo-text-input"
           placeholder="Todo text..."
         />
-        <button type="button" id="add-todo" class="btn">Add Todo</button>
+        <button type="button" id="todo-add-btn" class="btn btn--add">
+          Add Todo
+        </button>
         <div class="error"></div>
       </form>
 

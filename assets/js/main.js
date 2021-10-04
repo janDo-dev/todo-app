@@ -1,8 +1,8 @@
 "use strict";
 
 const todoForm = document.querySelector("#todo-form");
-const todoInput = document.querySelector("#todo-text");
-const addTodoBtn = document.querySelector("#add-todo");
+const todoInput = document.querySelector("#todo-text-input");
+const addTodoBtn = document.querySelector("#todo-add-btn");
 const todoList = document.querySelector("#todo-list");
 const error = document.querySelector(".error");
 
@@ -15,23 +15,51 @@ todoForm.addEventListener("submit", (e) => {
 });
 
 addTodoBtn.addEventListener("click", addTodo);
-todoList.addEventListener("click", removeTodo);
+todoList.addEventListener("click", (e) => {
+  if (e.target.classList.contains("todo-state-toggle")) {
+    toggleDone(e);
+  }
+
+  if (e.target.classList.contains("btn--delete")) {
+    deleteTodo(e);
+  }
+});
 
 function addTodo() {
   if (todoInput.value) {
     const newTodo = document.createElement("li");
+    const todoTextEl = document.createElement("div");
     const todoText = document.createTextNode(todoInput.value.trim());
+    const todoControls = document.createElement("div");
+    const todoDoneToggle = document.createElement("input");
+    const todoDeleteBtn = document.createElement("button");
 
     todos.push({
       id: idCounter,
       text: todoInput.value,
+      isDone: false,
     });
 
-    newTodo.classList.add("todo");
-    newTodo.appendChild(todoText);
+    todoDeleteBtn.textContent = "Delete";
+    todoTextEl.classList.add("todo-text");
+    todoControls.classList.add("todo-controls");
+    todoDeleteBtn.setAttribute("type", "button");
+    todoDeleteBtn.setAttribute("data-delete-id", idCounter);
+    todoDeleteBtn.classList.add("btn", "btn--delete");
     newTodo.setAttribute("data-id", idCounter);
+    todoDoneToggle.setAttribute("type", "checkbox");
+    todoDoneToggle.setAttribute("name", "todo-state-toggle");
+    todoDoneToggle.setAttribute("id", "todo-state-toggler");
+    todoDoneToggle.classList.add("todo-state-toggle");
+    newTodo.classList.add("todo");
 
+    todoTextEl.appendChild(todoText);
+    todoControls.appendChild(todoDoneToggle);
+    todoControls.appendChild(todoDeleteBtn);
+    newTodo.appendChild(todoTextEl);
+    newTodo.appendChild(todoControls);
     todoList.appendChild(newTodo);
+
     todoInput.value = "";
     todoInput.classList.remove("input-error");
     error.style.display = "none";
@@ -51,16 +79,23 @@ function addTodo() {
   }
 }
 
-function removeTodo(e) {
-  if (e.target.classList.contains("todo")) {
-    const id = Number(e.target.getAttribute("data-id"));
+function toggleDone(e) {
+  const todoToToggle = e.target.parentElement.parentElement;
+  const todoIndex = todos.findIndex(
+    (todoInArray) =>
+      todoInArray.id === Number(todoToToggle.getAttribute("data-id"))
+  );
+  todos[todoIndex].isDone = !todos[todoIndex].isDone;
+  todoToToggle.classList.toggle("todo--done");
+}
 
-    todos = todos.filter((todoItem) => {
-      return todoItem.id !== id;
-    });
+function deleteTodo(e) {
+  const id = Number(e.target.getAttribute("data-delete-id"));
+  const todoToDelete = todoList.querySelector('[data-id="' + id + '"]');
 
-    e.target.remove();
+  todos = todos.filter((todoItem) => {
+    return todoItem.id !== id;
+  });
 
-    console.log(todos);
-  }
+  todoToDelete.remove();
 }

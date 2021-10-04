@@ -3,6 +3,32 @@ body {
   min-width: 100vh;
 }
 
+input[type="text"] {
+  line-height: 1;
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: 2px solid #e0e0e0;
+}
+
+.btn {
+  font-weight: bold;
+  border-radius: 5px;
+  border: unset;
+  padding: 0.5rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.btn--add {
+  background-color: lightgray;
+  border: 2px solid #a0a0a0;
+}
+
+.btn--delete {
+  background-color: red;
+  color: #fff;
+}
+
 #site-header,
 #site-footer,
 #main-content {
@@ -21,6 +47,9 @@ body {
 
 .todo {
   position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   background-color: #fff;
   border-radius: 0.5rem;
   padding: 1rem;
@@ -29,7 +58,11 @@ body {
   overflow: hidden;
 }
 
-.todo::before {
+.todo--done .todo-text {
+  text-decoration: line-through;
+}
+
+/* .todo::before {
   position: absolute;
   top: 0;
   right: 0;
@@ -40,12 +73,24 @@ body {
   background-color: red;
   color: #fff;
   font-weight: bold;
-}
+} */
 
-.todo:hover::before {
+/* .todo:hover::before {
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
+} */
+
+.todo-controls {
+  display: flex;
+  align-items: center;
+}
+
+.todo-state-toggle {
+  width: 20px;
+  height: 20px;
+  margin-right: 0.5rem;
   cursor: pointer;
 }
 
