@@ -5,6 +5,9 @@ const todoInput = document.querySelector("#todo-text-input");
 const addTodoBtn = document.querySelector("#todo-add-btn");
 const todoList = document.querySelector("#todo-list");
 const error = document.querySelector(".error");
+const filterShowAll = document.querySelector("#filter-show-all");
+const filterShowOpen = document.querySelector("#filter-show-open");
+const filterShowDone = document.querySelector("#filter-show-done");
 
 let todos = [];
 let idCounter = 1;
@@ -24,6 +27,9 @@ todoList.addEventListener("click", (e) => {
     deleteTodo(e);
   }
 });
+filterShowAll.addEventListener("change", filterTodos);
+filterShowDone.addEventListener("change", filterTodos);
+filterShowOpen.addEventListener("change", filterTodos);
 
 function addTodo() {
   if (todoInput.value) {
@@ -85,6 +91,7 @@ function toggleDone(e) {
     (todoInArray) =>
       todoInArray.id === Number(todoToToggle.getAttribute("data-id"))
   );
+
   todos[todoIndex].isDone = !todos[todoIndex].isDone;
   todoToToggle.classList.toggle("todo--done");
 }
@@ -98,4 +105,48 @@ function deleteTodo(e) {
   });
 
   todoToDelete.remove();
+}
+
+function showDone() {
+  if (todos.length && this.checked) {
+    const openTodos = todos.filter((todoItem) => {
+      return !todoItem.isDone;
+    });
+
+    openTodos.forEach((openTodo) => {
+      todoList
+        .querySelector(`[data-id="${openTodo.id}"]`)
+        .classList.add("todo--hidden");
+    });
+  }
+}
+
+function filterTodos(e) {
+  [...todoList.children].forEach((todoListEntry) => {
+    todoListEntry.classList.remove("todo--hidden");
+  });
+
+  if (todos.length && this.id === "filter-show-done") {
+    const openTodos = todos.filter((todoItem) => {
+      return !todoItem.isDone;
+    });
+
+    openTodos.forEach((openTodo) => {
+      todoList
+        .querySelector(`[data-id="${openTodo.id}"]`)
+        .classList.add("todo--hidden");
+    });
+  }
+
+  if (todos.length && this.id === "filter-show-open") {
+    const doneTodos = todos.filter((todoItem) => {
+      return todoItem.isDone;
+    });
+
+    doneTodos.forEach((doneTodo) => {
+      todoList
+        .querySelector(`[data-id="${doneTodo.id}"]`)
+        .classList.add("todo--hidden");
+    });
+  }
 }

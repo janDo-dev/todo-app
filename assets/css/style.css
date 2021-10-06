@@ -38,6 +38,10 @@ input[type="text"] {
   padding: 3rem;
 }
 
+#todo-form {
+  margin-bottom: 1.5rem;
+}
+
 #todo-list {
   list-style: none;
   background-color: lightgray;
@@ -56,6 +60,10 @@ input[type="text"] {
   margin-bottom: 1rem;
   line-height: 1;
   overflow: hidden;
+}
+
+.todo--hidden {
+  display: none;
 }
 
 .todo--done .todo-text {
