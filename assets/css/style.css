@@ -29,6 +29,12 @@ input[type="text"] {
   color: #fff;
 }
 
+.btn--clear-storage {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+}
+
 #site-header,
 #site-footer,
 #main-content {

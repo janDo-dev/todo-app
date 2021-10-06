@@ -8,13 +8,19 @@ const error = document.querySelector(".error");
 const filterShowAll = document.querySelector("#filter-show-all");
 const filterShowOpen = document.querySelector("#filter-show-open");
 const filterShowDone = document.querySelector("#filter-show-done");
+const clearStorageBtn = document.querySelector(".btn--clear-storage");
 
+let state = {};
 let todos = [];
 let idCounter = 1;
 let errorMsg = "";
 
-todoForm.addEventListener("submit", (e) => {
-  e.preventDefault();
+if (localStorage.todoSettings) {
+  loadStorage();
+}
+
+clearStorageBtn.addEventListener("click", () => {
+  clearStorage();
 });
 
 addTodoBtn.addEventListener("click", addTodo);
@@ -31,6 +37,25 @@ filterShowAll.addEventListener("change", filterTodos);
 filterShowDone.addEventListener("change", filterTodos);
 filterShowOpen.addEventListener("change", filterTodos);
 
+function loadStorage() {
+  state = JSON.parse(localStorage.todoSettings);
+
+  todos = state.todos;
+  idCounter = state.idCounter;
+  errorMsg = "";
+
+  todoForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+  });
+
+  todoList.innerHTML = state.todoList || null;
+  [...todoList.children].forEach((todoListEntry) => {
+    todoListEntry.classList.contains("todo--done")
+      ? (todoListEntry.querySelector(".todo-state-toggle").checked = true)
+      : null;
+  });
+}
+
 function addTodo() {
   if (todoInput.value) {
     todos.push({
@@ -44,8 +69,9 @@ function addTodo() {
     todoInput.value = "";
     todoInput.classList.remove("input-error");
     error.style.display = "none";
-
     idCounter++;
+
+    saveState();
   } else {
     todoInput.classList.add("input-error");
 
@@ -98,6 +124,8 @@ function toggleDone(e) {
 
   todos[todoIndex].isDone = !todos[todoIndex].isDone;
   todoToToggle.classList.toggle("todo--done");
+
+  saveState();
 }
 
 function deleteTodo(e) {
@@ -109,20 +137,7 @@ function deleteTodo(e) {
   });
 
   todoToDelete.remove();
-}
-
-function showDone() {
-  if (todos.length && this.checked) {
-    const openTodos = todos.filter((todoItem) => {
-      return !todoItem.isDone;
-    });
-
-    openTodos.forEach((openTodo) => {
-      todoList
-        .querySelector(`[data-id="${openTodo.id}"]`)
-        .classList.add("todo--hidden");
-    });
-  }
+  saveState();
 }
 
 function filterTodos(e) {
@@ -153,4 +168,20 @@ function filterTodos(e) {
         .classList.add("todo--hidden");
     });
   }
+}
+
+function saveState() {
+  localStorage.setItem(
+    "todoSettings",
+    JSON.stringify({
+      todos: todos,
+      idCounter: idCounter,
+      todoList: todoList.innerHTML,
+    })
+  );
+}
+
+function clearStorage() {
+  localStorage.clear();
+  window.location.reload();
 }
