@@ -33,38 +33,13 @@ filterShowOpen.addEventListener("change", filterTodos);
 
 function addTodo() {
   if (todoInput.value) {
-    const newTodo = document.createElement("li");
-    const todoTextEl = document.createElement("div");
-    const todoText = document.createTextNode(todoInput.value.trim());
-    const todoControls = document.createElement("div");
-    const todoDoneToggle = document.createElement("input");
-    const todoDeleteBtn = document.createElement("button");
-
     todos.push({
       id: idCounter,
       text: todoInput.value,
       isDone: false,
     });
 
-    todoDeleteBtn.textContent = "Delete";
-    todoTextEl.classList.add("todo-text");
-    todoControls.classList.add("todo-controls");
-    todoDeleteBtn.setAttribute("type", "button");
-    todoDeleteBtn.setAttribute("data-delete-id", idCounter);
-    todoDeleteBtn.classList.add("btn", "btn--delete");
-    newTodo.setAttribute("data-id", idCounter);
-    todoDoneToggle.setAttribute("type", "checkbox");
-    todoDoneToggle.setAttribute("name", "todo-state-toggle");
-    todoDoneToggle.setAttribute("id", "todo-state-toggler");
-    todoDoneToggle.classList.add("todo-state-toggle");
-    newTodo.classList.add("todo");
-
-    todoTextEl.appendChild(todoText);
-    todoControls.appendChild(todoDoneToggle);
-    todoControls.appendChild(todoDeleteBtn);
-    newTodo.appendChild(todoTextEl);
-    newTodo.appendChild(todoControls);
-    todoList.appendChild(newTodo);
+    createTodoEl();
 
     todoInput.value = "";
     todoInput.classList.remove("input-error");
@@ -83,6 +58,35 @@ function addTodo() {
       error.style.display = "block";
     }
   }
+}
+
+function createTodoEl() {
+  const newTodo = document.createElement("li");
+  const todoTextEl = document.createElement("div");
+  const todoText = document.createTextNode(todoInput.value.trim());
+  const todoControls = document.createElement("div");
+  const todoDoneToggle = document.createElement("input");
+  const todoDeleteBtn = document.createElement("button");
+
+  todoDeleteBtn.textContent = "Delete";
+  todoTextEl.classList.add("todo-text");
+  todoControls.classList.add("todo-controls");
+  todoDeleteBtn.setAttribute("type", "button");
+  todoDeleteBtn.setAttribute("data-delete-id", idCounter);
+  todoDeleteBtn.classList.add("btn", "btn--delete");
+  newTodo.setAttribute("data-id", idCounter);
+  todoDoneToggle.setAttribute("type", "checkbox");
+  todoDoneToggle.setAttribute("name", "todo-state-toggle");
+  todoDoneToggle.setAttribute("id", "todo-state-toggler");
+  todoDoneToggle.classList.add("todo-state-toggle");
+  newTodo.classList.add("todo");
+
+  todoTextEl.appendChild(todoText);
+  todoControls.appendChild(todoDoneToggle);
+  todoControls.appendChild(todoDeleteBtn);
+  newTodo.appendChild(todoTextEl);
+  newTodo.appendChild(todoControls);
+  todoList.appendChild(newTodo);
 }
 
 function toggleDone(e) {
