@@ -2,7 +2,7 @@
 
 # todo-api
 
-The todo-api is a demo api to list, get, create, update and delete todos.
+The todo-api is a demo api to list, get, create, update and delete todos.  
 `https://github.com/coding-bootcamps-eu/todo-api`
 
 ## Installation & Usage
