@@ -123,3 +123,7 @@ input[type="text"] {
   padding: 2rem;
   margin-top: 1rem;
 }
+
+.error--show {
+  display: block;
+}
