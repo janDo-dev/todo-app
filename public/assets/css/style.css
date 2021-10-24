@@ -29,12 +29,6 @@ input[type="text"] {
   color: #fff;
 }
 
-.btn--clear-storage {
-  position: absolute;
-  top: 2rem;
-  right: 2rem;
-}
-
 #site-header,
 #site-footer,
 #main-content {
@@ -46,6 +40,25 @@ input[type="text"] {
 
 #todo-form {
   margin-bottom: 1.5rem;
+}
+
+.filter {
+  display: flex;
+  justify-content: space-evenly;
+  font-weight: 700;
+}
+
+.filter > label {
+  cursor: pointer;
+}
+
+.filter > label:hover {
+  cursor: pointer;
+  color: orange;
+}
+
+.filter > input[type="radio"] {
+  display: none;
 }
 
 #todo-list {

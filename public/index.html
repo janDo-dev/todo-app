@@ -11,8 +11,6 @@
     <link rel="stylesheet" href="./assets/css/style.css" />
   </head>
   <body>
-    <button class="btn btn--clear-storage" type="button">Clear storage</button>
-
     <header id="site-header">
       <h1>Todo App</h1>
     </header>
@@ -33,26 +31,20 @@
       </form>
 
       <div class="filter">
-        <label for="radio-show-all" id="filter-show-all"
-          >Show all
-          <input type="radio" name="todo-filter" id="radio-show-all" checked />
-        </label>
+        <label for="filter-show-all">Show all</label>
+        <input type="radio" name="todo-filter" id="filter-show-all" checked />
 
-        <label for="radio-show-open" id="filter-show-open"
-          >Show open
-          <input type="radio" name="todo-filter" id="radio-show-open" />
-        </label>
+        <label for="filter-show-open">Show open</label>
+        <input type="radio" name="todo-filter" id="filter-show-open" />
 
-        <label for="radio-show-done" id="filter-show-done"
-          >Show done
-          <input type="radio" name="todo-filter" id="radio-show-done" />
-        </label>
+        <label for="filter-show-done">Show done</label>
+        <input type="radio" name="todo-filter" id="filter-show-done" />
       </div>
 
       <ul id="todo-list"></ul>
     </main>
 
     <footer id="site-footer">This is a footer.</footer>
-    <script src="./assets/js/main.js"></script>
+    <script type="module" src="./assets/js/main.js"></script>
   </body>
 </html>
